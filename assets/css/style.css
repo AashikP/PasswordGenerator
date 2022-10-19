@@ -1,0 +1,114 @@
+body {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
+  font-size: 14px;
+  color: #111;
+  background-color: #d1d1d1;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  padding: 1rem 1rem 0;
+  margin: 2rem auto;
+  max-width: 500px;
+  width: 100%;
+  background-color: #e1e1e1;
+  border-radius: 0.3rem;
+  border: 1px solid #b1b1b1;
+  overflow: hidden;
+  overflow-wrap: normal;
+}
+
+footer {
+  padding: 2rem 0 0.5rem;
+  text-align: right;
+}
+
+footer a {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+footer a:hover {
+  color: #444;
+}
+
+input,
+button,
+input[type='button'],
+input[type='submit'] {
+  padding: 0.5rem;
+  color: #666;
+  border: 1px solid #b1b1b1;
+}
+
+input[type='submit']:hover,
+button.copy:hover {
+  color: #444;
+  background-color: #c1c1c1;
+}
+
+input#total-chars,
+input#total-words {
+  padding: 0.5rem;
+  max-width: 2.5rem;
+}
+
+h3 {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+input,
+label,
+.inline {
+  display: inline-block;
+}
+
+.result {
+  margin-top: 2rem;
+}
+
+#select-type {
+  margin-bottom: 1rem;
+}
+
+#generated-password {
+  padding: 0.5rem;
+  margin: 1rem auto;
+  background-color: #fff;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  max-width: 300px;
+}
+
+.gen-message {
+  padding: 0.5rem;
+}
+
+.success,
+.error {
+  display: block;
+}
+
+.success {
+  background-color: #e7fbe7;
+  border: 1px dotted #008000;
+}
+
+.error {
+  background-color: #ffd9d9;
+  border: 1px dotted #ff0000;
+}
+
+.hidden {
+  display: none;
+}
+
+@media only screen and (max-width: 800px) {
+  .container {
+    max-width: 80% !important;
+    margin: 2rem auto;
+  }
+}

@@ -4,208 +4,82 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Random Password Generator</title>
+    <title>Random Password/PassPhrase Generator</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
   </head>
-  <style>
-    body {
-      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-        'Lucida Sans', Arial, sans-serif;
-      font-size: 14px;
-      color: #111;
-      background-color: #e1e1e1;
-      width: 100%;
-    }
-    textarea {
-      margin: 1rem;
-      background-color: #d1d1d1;
-      border: #c1c1c1;
-    }
-    .gen-pass {
-      padding: 0.5rem;
-      margin: 1rem;
-    }
-
-    .success {
-      border: 1px dotted green;
-    }
-
-    .error {
-      border: 1px dotted red;
-    }
-  </style>
   <body>
     <div class="container">
-      Include Numbers?
-      <input type="checkbox" name="number" id="numbers" checked /><br />
-      Include Small Letters?
-      <input
-        type="checkbox"
-        name="small-letters"
-        id="small-letters"
-        checked
-      /><br />
-      Include Capital Letters?
-      <input
-        type="checkbox"
-        name="capital-letters"
-        id="capital-letters"
-        checked
-      /><br />
-      Include Special Characters?
-      <input
-        type="checkbox"
-        name="special-characters"
-        id="special-characters"
-        checked
-      /><br />
-      Total Characters <input type="number" value="25" id="total-chars" />
-      <br /><br />
-      <button id="submit">Submit</button>
-      <br /><br /><br />
-      <span class="gen-pass success error">Generated Password: </span><br />
-      <textarea
-        name="generated-password"
-        id="generated-password"
-        cols="40"
-        rows="10"
-      ></textarea>
+      <h3>Random Password/PassPhrase Generator</h3>
+
+      <form action="#" id="select-type">
+        <label for="select-type">Select Type</label>
+        <input
+          type="radio"
+          name="password"
+          id="select-password"
+          value="Password"
+        /><label for="password">Password</label>
+        <input
+          type="radio"
+          name="passphrase"
+          id="select-passphrase"
+          value="passphrase"
+        /><label for="passphrase">PassPhrase</label>
+      </form>
+
+      <form action="#" id="passphrase-form" class="hidden">
+        <label for="random-words">Words to include</label>
+        <input type="number" value="15" id="total-words" /><br /><br />
+        <input type="submit" value="Submit" id="submit-passphrase" />
+      </form>
+
+      <form action="#" id="password-form" class="">
+        <label for="numbers">Include Numbers?</label>
+        <input type="checkbox" name="number" id="numbers" checked /><br />
+        <label for="small-letters">Include Small Letters?</label>
+        <input
+          type="checkbox"
+          name="small-letters"
+          id="small-letters"
+          checked
+        /><br />
+        <label for="capital-letters">Include Capital Letters?</label>
+        <input
+          type="checkbox"
+          name="capital-letters"
+          id="capital-letters"
+          checked
+        /><br />
+        <label for="special-characters">Include Special Characters?</label>
+        <input
+          type="checkbox"
+          name="special-characters"
+          id="special-characters"
+          checked
+        /><br />
+        <label for="total-chars">Total Characters</label>
+        <input type="number" value="25" id="total-chars" /><br /><br />
+        <input type="submit" value="Submit" id="submit-password" />
+      </form>
+
+      <div class="result hidden">
+        <div
+          name="generated-password"
+          id="generated-password"
+          cols="40"
+          rows="10"
+          class="inline hidden"
+        ></div>
+        <button class="inline copy hidden">Copy</button>
+
+        <div class="gen-message hidden"></div>
+      </div>
+      <footer>
+        <a href="https://github.com/aashikp/passwordGenerator" target="_blank"
+          >GitHub</a
+        >
+      </footer>
     </div>
-    <script>
-      'use strict';
-      let numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-      let smallLetters = [
-        'a',
-        'b',
-        'c',
-        'd',
-        'e',
-        'f',
-        'g',
-        'h',
-        'i',
-        'j',
-        'k',
-        'l',
-        'm',
-        'n',
-        'o',
-        'p',
-        'q',
-        'r',
-        's',
-        't',
-        'u',
-        'v',
-        'w',
-        'x',
-        'y',
-        'z',
-      ];
-      let capitalLetters = [
-        'A',
-        'B',
-        'C',
-        'D',
-        'E',
-        'F',
-        'G',
-        'H',
-        'I',
-        'J',
-        'K',
-        'L',
-        'M',
-        'N',
-        'O',
-        'P',
-        'Q',
-        'R',
-        'S',
-        'T',
-        'U',
-        'V',
-        'W',
-        'X',
-        'Y',
-        'Z',
-      ];
-      let basicspecialChars = [
-        '-',
-        '+',
-        '|',
-        '/',
-        '~',
-        '#',
-        '$',
-        '@',
-        '!',
-        '^',
-        '&',
-      ];
-      let selectedArray = [];
-      let totalCharacters = 25;
-
-      let getSelections = function () {
-        if (
-          document.querySelector('#total-chars').value != 25 &&
-          isFinite(document.querySelector('#total-chars').value)
-        ) {
-          totalCharacters = document.querySelector('#total-chars').value;
-        }
-        selectedArray = [];
-        if (document.querySelector('#numbers').checked) {
-          selectedArray = selectedArray.concat(numbers);
-        }
-        if (document.querySelector('#small-letters').checked) {
-          selectedArray = selectedArray.concat(smallLetters);
-        }
-        if (document.querySelector('#capital-letters').checked) {
-          selectedArray = selectedArray.concat(capitalLetters);
-        }
-        if (document.querySelector('#special-characters').checked) {
-          selectedArray = selectedArray.concat(basicspecialChars);
-        }
-      };
-
-      let gernerateRandomPassword = function (totalCharacters, value = []) {
-        let generatedPassword = '';
-        if (value.length > 8 && totalCharacters > 5) {
-          for (let index = 0; index < totalCharacters; index++) {
-            generatedPassword +=
-              value[Math.floor(Math.random() * value.length)];
-          }
-          return generatedPassword;
-        } else {
-          return false;
-        }
-      };
-
-      const triggerPasswordGenerator = function () {
-        getSelections();
-        let pass = gernerateRandomPassword(totalCharacters, selectedArray);
-        if (pass) {
-          navigator.clipboard.writeText(pass);
-          document.querySelector('#generated-password').innerText = pass;
-          document.querySelector('.gen-pass').classList.add('success');
-          document.querySelector('.gen-pass').classList.remove('error');
-          document.querySelector(
-            '.gen-pass'
-          ).innerText = `Generated Password & Copied to ClipBoard ✅`;
-        } else {
-          document.querySelector('.gen-pass').classList.add('error');
-          document.querySelector('.gen-pass').classList.remove('success');
-          document.querySelector('#generated-password').innerText =
-            'Please include at least one type, and a minimum of 6 characters';
-          document.querySelector(
-            '.gen-pass'
-          ).innerText = `Password not Generated: ❌`;
-        }
-      };
-
-      document
-        .querySelector('#submit')
-        .addEventListener('click', triggerPasswordGenerator);
-      addEventListener('load', triggerPasswordGenerator);
-    </script>
+    <script src="assets/js/script.js"></script>
   </body>
 </html>
