@@ -121,11 +121,11 @@ const reset = function () {
 
 const toggleChecked = function (e) {
   reset();
-  if (e.path[0] === elSelectPassword) {
+  if (e.srcElement === elSelectPassword) {
     elSelectPassword.checked = true;
     updateCSS([elPasswordForm], _, _, 'hidden');
   }
-  if (e.path[0] === elSelectPassPhrase) {
+  if (e.srcElement === elSelectPassPhrase) {
     elSelectPassPhrase.checked = true;
     updateCSS([elPassPhraseForm], _, _, 'hidden');
   }
